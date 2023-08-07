@@ -3,11 +3,14 @@ import dayjs from "dayjs";
 import { GetProducts } from "../02App/getProduct";
 import { PostOrders } from "../02App/postOrders";
 import { OrderSelectionItem } from "../03Components/Waiter/OrderSelectionItem";
-import { AddedToCart, TotalAddedToCart } from "../03Components/Waiter/AddedToCart";
+import {
+  AddedToCart,
+  TotalAddedToCart,
+} from "../03Components/Waiter/AddedToCart";
 import { LoggedUserAndExist } from "../03Components/LoggedUserAndExist";
 import { DeletePopup } from "../03Components/Waiter/DeletePopup";
 import { LogoPng } from "../03Components/logoComponent";
-import { Background} from "../03Components/Background";
+import { Background } from "../03Components/Background";
 import { ICartItems, orderItems, orderData } from "../03Components/Interfaces";
 
 export const Waiter: React.FC = () => {
@@ -15,7 +18,7 @@ export const Waiter: React.FC = () => {
   const [productType, setProductType] = useState("Desayuno");
   const [cartItems, setCartItems] = useState<ICartItems[]>([]);
   const [customerName, setCustomerName] = useState("");
-  const [customerTable, setcustomerTable] = useState("");
+  //const [customerTable, setcustomerTable] = useState("");
   useEffect(() => {
     GetProducts()
       .then((data) => {
@@ -101,13 +104,9 @@ export const Waiter: React.FC = () => {
   };
 
   const handleSendOrders = () => {
-    const name = { customerName };
-    console.log(name);
-    const table = { customerTable };
-    console.log(table);
-  //   const currentDateFormatted = dayjs().format("YYYY-MM-DD HH:mm:ss");
-  // console.log("Current Date:", currentDateFormatted);
-   
+    //   const currentDateFormatted = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    // console.log("Current Date:", currentDateFormatted);
+
     const orderItems: orderItems[] = cartItems.map((item) => ({
       qty: item.clicks,
       product: {
@@ -117,22 +116,23 @@ export const Waiter: React.FC = () => {
         type: item.type,
         dateEntry: item.dateEntry,
         // imagen: item.image,
-         },
+      },
     }));
     const orderData: orderData = {
       userId: localStorage.getItem("userId"),
-      client: name.customerName,
+      client: customerName,
       products: orderItems,
       status: "pendiente",
       dateEntry: dayjs().format("YYYY-MM-DD HH:mm:ss"),
     };
     console.log(orderData);
-      PostOrders(orderData)
+    PostOrders(orderData)
       .then((response) => {
         console.log("se guardooo perro", response);
         return response;
       })
-      .catch((error) => {7
+      .catch((error) => {
+        7;
         console.error("error perro", error);
       });
   };
@@ -212,8 +212,8 @@ export const Waiter: React.FC = () => {
             <h1>Mesa:</h1>
             <input
               type="number"
-              value={customerTable}
-              onChange={(e) => handleSetValue(setcustomerTable, e)}
+              // value={customerTable}
+              // onChange={(e) => handleSetValue(setcustomerTable, e)}
               className="bg-skin h-[50%] w-[20%] rounded-5"
             ></input>
           </div>

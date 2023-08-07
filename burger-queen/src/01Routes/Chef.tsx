@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { LogoPng } from "../03Components/logoComponent";
 import { Background } from "../03Components/Background";
 import { LoggedUserAndExist } from "../03Components/LoggedUserAndExist";
-import { AddedToList } from "../03Components/Chef/AddedToList";
 import { GetOrders } from "../02App/getOrders";
+import { AddedToList } from "../03Components/Chef/AddedToList";
 
 export const Chef: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -57,6 +57,8 @@ export const Chef: React.FC = () => {
               client={order.client}
               products={order.products}
               dateEntry={order.dateEntry}
+              userId={undefined}
+              status={""}
             />
           ))}
         </section>
